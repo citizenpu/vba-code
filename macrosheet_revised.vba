@@ -9,7 +9,7 @@ Sub macrosheet()
 
     For i = 2 To j
         Set ws = ActiveWorkbook.Worksheets(i)
-        With ws.Range("G2:AM2")
+        With ws.Range("G2:AM2") "use with method to avoid select
             .Copy
             .PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
             Set destRange = ActiveWorkbook.Worksheets(1).Range("H2:AD2").Offset(i - 2, 0)
