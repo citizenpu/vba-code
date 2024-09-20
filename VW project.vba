@@ -1,4 +1,4 @@
-#step 1.this macro is built upon Jun's original code and enables automatic deletion of sheets that have 'na" while keeping the remaining. ws_start can be replaced by ActiveWorkbook.Worksheets("Index").Index
+'step 1.this macro is built upon Jun's original code and enables automatic deletion of sheets that have 'na" while keeping the remaining. ws_start can be replaced by ActiveWorkbook.Worksheets("Index").Index
 Sub MacroNA()
 Dim ws_count As Integer
 Dim I As Integer
@@ -19,8 +19,8 @@ For I = ws_start To ws_count
     End If        
 Next I    
 End Sub
-··························································································································································································································
-#step2 this macro can be used to delete the CN** sheets before the "index" sheet
+'··························································································································································································································
+'step2 this macro can be used to delete the CN** sheets before the "index" sheet
 Sub Macrodelete()
 Dim I As Integer
 J = 100 
@@ -32,7 +32,7 @@ While J > 1
 Wend
 End Sub
 .......................................................................................................................
-#step3 this macro is used to write the filename of each sheet into a single sheet (the "index" sheet)'s column (D corresponds to cell(.,4))
+'step3 this macro is used to write the filename of each sheet into a single sheet (the "index" sheet)'s column (D corresponds to cell(.,4))
 Sub Macroname()
 Dim ws As Worksheet
 Dim x As Integer
@@ -43,7 +43,7 @@ For Each ws In Activeworkbook.Worksheets
 Next ws
 End Sub
 .......................................................................................................................
-# step 4 this macro is used to copy the unmatched sheet from the workbook in previous years to the current worbook. two workbooks must be in the same folder. when the program ends, it will alert"out of range"
+'step 4 this macro is used to copy the unmatched sheet from the workbook in previous years to the current worbook. two workbooks must be in the same folder. when the program ends, it will alert"out of range"
 sub Macroconnect()
 For Each cel in Workbooks("2023_LabourWageLandUse.xlsx").Worksheets("Index").range("B:B").Cells
     If iserror(Application.match(cel.value,Workbooks("2024_LabourWageLandUse.xlsx").Worksheets("Index").range("B:B").Cells,0)) then
