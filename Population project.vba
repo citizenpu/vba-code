@@ -1,4 +1,4 @@
-#open multiple workbooks
+'open multiple workbooks
 Sub macroopen()
 Const sPath = "G:\global\china forecasting service\Data\Prefectures\Demographics\"
 sfil = Dir(sPath & "CNHN*.xls*")
@@ -10,7 +10,7 @@ i = i + 1
 Loop
 End Sub
 
-#use solver to feed the forecasts into the workbooks
+'use solver to feed the forecasts into the workbooks
 Sub macromuni_c()
 'to facilitate column operations
 Workbooks("Prefecture_Central").Activate
@@ -32,7 +32,7 @@ For n = 26 To 26
 Next n
 End Sub
 
-#use goseek to feed the forecasts into the workbooks
+'use goseek to feed the forecasts into the workbooks
 Sub macroseek()
 'to facilitate row operations
 Workbooks("Prefecture_Central").Activate
@@ -50,7 +50,7 @@ For m = 944 To 950
 Next m
 End Sub
 
-#save all the changes made to the workbooks
+'save all the changes made to the workbooks
 Sub macrosave()
 Dim wb As Workbook
 For Each wb In Application.Workbooks
@@ -60,7 +60,7 @@ For Each wb In Application.Workbooks
 Next wb
 End Sub
 
-#for second check
+'for second check
 Sub macrocolor1()
 Workbooks("Prefecture_Central").Activate
 Sheets("Birth").Activate
@@ -73,7 +73,7 @@ For i = m To n
 Next i
 End Sub
 
-#for second check
+'for second check
 Sub macrocolor2()
 Workbooks("Prefecture_Central").Activate
 Sheets("Population_Total").Activate
