@@ -1,4 +1,4 @@
-Sub macroopen()
+Sub macropension()
 Const sPath = "G:\global\china forecasting service\Data\Provinces\Demographics\"
 sfil = Dir(sPath & "CN*_POP.xls*")
 i = 1
