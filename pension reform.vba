@@ -8,8 +8,8 @@ Do While sfil <> ""
   Workbooks.Open sPath & sfil, "0"
   For n = 3 To 4 'source sheet index
     ActiveWorkbook.Worksheets(n).Activate
-    prov = ActiveSheet.Range("A1")
-    age = ActiveSheet.Range("B75:B87") 'from 50 to 62 years old
+    prov = ActiveSheet.Range("A1") 'Range is equivalent to Range.Value 
+    age = ActiveSheet.Range("B75:B87") 'from 50 to 62 years old 'if set is dropped, age will be implicitly assigned to values within the range. if set is added, age will be assigned to a range object
     Set target = Workbooks("Book1.xlsx").Worksheets(n - 2).Range("A1:A13")
     For j = 1 To 2 ' gender index
       m = 13 * (j - 1) + 26 * (i - 1)
