@@ -9,7 +9,7 @@ Do While sfil <> ""
   For n = 3 To 4 'source sheet index
     ActiveWorkbook.Worksheets(n).Activate
     prov = ActiveSheet.Range("A1")
-    age = ActiveSheet.Range("B75:B87")
+    age = ActiveSheet.Range("B75:B87") 'from 50 to 62 years old
     Set target = Workbooks("Book1.xlsx").Worksheets(n - 2).Range("A1:A13")
     For j = 1 To 2 ' gender index
       m = 13 * (j - 1) + 26 * (i - 1)
