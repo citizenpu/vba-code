@@ -21,7 +21,7 @@ Sub pension()
         ' Open the source workbook
         Set wbSource = Workbooks.Open(sPath & sfil, False)
 
-        For n = 3 To 4 'source sheet index
+        For n = 3 To 4 'source sheet index for urban/rural area
             ' Set reference to the source worksheet
             Set wsSource = wbSource.Worksheets(n)
             prov = wsSource.Range("A1").Value
