@@ -1,23 +1,62 @@
-'step 1.this macro is built upon Jun's original code and enables automatic deletion of sheets that have 'na" while keeping the remaining. ws_start can be replaced by ActiveWorkbook.Worksheets("Index").Index
-Sub MacroNA()
-Dim ws_count As Integer
-Dim I As Integer
-ws_count = ActiveWorkbook.Worksheets.Count
-ws_start = ActiveWorkbook.ActiveSheet.Index
-Application.DisplayAlerts = False
-For I = ws_start To ws_count
-   ActiveWorkbook.Worksheets(I).Activate
-   ActiveWorkbook.Worksheets(I).Calculate 
-   If IsError(ActiveWorkbook.Worksheets(I).Cells(6, 5)) Then
-            ActiveWorkbook.Worksheets(I).Delete
-            I = I - 1
-   Else
-            Cells.Select
-            Selection.Copy
-            Cells.Select
-            Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
-    End If        
-Next I    
+Preparation step: move/copy the entire focus province/city into the workbook to be updated. They should be inserted before the index sheet in the destination workbook.
+For province, replace all the CNXZ with CNTB in the CNXZ sheet, and the sheet name should aslo be replaced with CNTB!!!
+#step 1.by Tianzeng (Range operation runs much faster)
+'opearte by cell
+Sub vw3()
+    Dim cell As Range, Line As Range
+    Dim I As Long
+    Dim startyear As Long, endyear As Long
+    ws_count = ActiveWorkbook.Worksheets.Count
+    ws_start = ActiveWorkbook.ActiveSheet.Index
+    'For Each cell In Worksheets("Index").Range("B2", Worksheets("Index").Range("B2").End(xlDown)).Cells
+        'Worksheets(cell.Value).Activate
+    For c = ws_start To ws_count
+        For Each Line In Worksheets(c).Range("A6", Worksheets(c).Range("A6").End(xlDown)).Cells
+            iden = Worksheets(c).Name
+            startyear = Worksheets(c).Range("E5").Value
+            endyear = 2035
+            For I = startyear To endyear
+                ' Fixed the range reference - assuming you want a named range or cell reference
+                Dim sourcecell As String
+                sourcecell = Line.Value & iden
+                Var = Application.Match(sourcecell, Worksheets(Line.Value).Columns(7), 0)
+                Line.Offset(0, 4 + I - startyear).Value = Worksheets(Line.Value).Cells(Var, 7).Offset(0, I - 1999 + 1).Value
+            Next I
+        Next Line
+    Next c
+    'Next cell
+End Sub
+
+
+'operate by range instead of cell
+Sub vw4()
+    Dim cell As Range, Line As Range
+    Dim I As Long
+    Dim startyear As Long, endyear As Long
+    ws_count = ActiveWorkbook.Worksheets.Count
+    ws_start = ActiveWorkbook.ActiveSheet.Index
+    'For Each cell In Worksheets("Index").Range("B2", Worksheets("Index").Range("B2").End(xlDown)).Cells
+        'Worksheets(cell.Value).Activate
+    For c = ws_start To ws_count
+        For Each Line In Worksheets(c).Range("A6", Worksheets(c).Range("A6").End(xlDown)).Cells
+            iden = Worksheets(c).Name
+            startyear = Worksheets(c).Range("E5").Value
+            endyear = 2035 'sometimes it is 2030
+	    sourcestartyear=1952 'it is 1999 for city, 1952 for province
+            'For I = startyear To endyear
+                ' Fixed the range reference - assuming you want a named range or cell reference
+                Dim sourcecell As String
+                sourcecell = Line.Value & iden
+                Var = Application.Match(sourcecell, Worksheets(Line.Value).Columns(7), 0)
+                'Worksheets(c).Range(Line.Offset(0, 4), Worksheets(c).Line.Offset(0, 4 + endyear - startyear)).Value = Worksheets(Line.Value).Range(Cells(Var, 7).Offset(0, startyear - 1999 + 1), Worksheets(Line.Value).Cells(Var, 7).Offset(0, endyear - 1999 + 1)).Value
+                Dim sourceRange As Range
+                Set sourceRange = Worksheets(Line.Value).Range(Worksheets(Line.Value).Cells(Var, 7).Offset(0, startyear - sourcestartyear + 1), Worksheets(Line.Value).Cells(Var, 7).Offset(0, endyear - sourcestartyear + 1))
+                Line.Offset(0, 4).Resize(1, endyear - startyear + 1).Value = sourceRange.Value
+
+            'Next I
+        Next Line
+    Next c
+    'Next cell
 End Sub
 '··························································································································································································································
 'step2 this macro can be used to delete the CN** sheets before the "index" sheet
